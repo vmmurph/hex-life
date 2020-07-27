@@ -38,12 +38,26 @@
     const drawSkip = 1
 
     let w = new HexWorld(worldWidthInHexes, worldHeightInHexes)
-    w.addObj(new Plant(), 0, 1)
-    w.addObj(new Plant(), 0, 2)
-    w.addObj(new Plant(), 1, 0)
-    w.addObj(new Plant(), 2, 0)
-    w.addObj(new Plant(500), worldWidthInHexes - 1, worldHeightInHexes - 1)
-    w.addObj(new Herbivore(), 0, 0)
+    
+    const generateRandomStart = () => {
+      const getRandX = () => Tools.getRand(0, worldWidthInHexes - 1)
+      const getRandY = () => Tools.getRand(0, worldHeightInHexes - 1)
+      const herb1 = w.addObj(new Herbivore(), getRandX(), getRandY())
+      const neighbors = herb1.hex.getNeighbors()
+      neighbors.forEach(hex => {
+        hex.add(new Plant())
+      })
+
+      let x = getRandX()
+      let y = getRandY()
+      while (w.getHex(x, y).objs.length > 0) {
+        x = getRandX()
+        y = getRandY()
+      }
+      w.addObj(new Plant(500), getRandX(), getRandY())
+    }
+
+    generateRandomStart()
 
     let margin = {
         top: 20,
@@ -220,7 +234,10 @@
       }
 
       const clearBtn = () => {
-        
+        w = new HexWorld(worldWidthInHexes, worldHeightInHexes)
+        generateRandomStart()
+        herbLayer.selectAll('g').remove()
+        draw()
       }
         
   </script>
