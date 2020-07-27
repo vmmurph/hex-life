@@ -31,7 +31,7 @@
     const hexSize = 15
 
     // milliseconds between every step when running automatically
-    const intervalTime = 200
+    const intervalTime = 350
     // milliseconds for draw transitions
     const transitionTime = intervalTime * .75
     // skips every <num> draw steps
@@ -54,7 +54,7 @@
         x = getRandX()
         y = getRandY()
       }
-      w.addObj(new Plant(500), getRandX(), getRandY())
+      w.addObj(new Plant(300), getRandX(), getRandY())
     }
 
     generateRandomStart()
@@ -237,6 +237,7 @@
         w = new HexWorld(worldWidthInHexes, worldHeightInHexes)
         generateRandomStart()
         herbLayer.selectAll('g').remove()
+        plantLayer.selectAll('circle').remove()
         draw()
       }
         

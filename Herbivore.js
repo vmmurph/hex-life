@@ -66,7 +66,7 @@ class Herbivore {
   scorePlant (plant, verbose = false) {
     let chance = this.chanceToEat(plant) / 100
 
-    let eatCost = 1.0 / chance * this.eatCost
+    let eatCost = chance === 0 ? 0 : 1.0 / chance * this.eatCost
     let movementCost = this.onSameHexAs(plant) ? 0 : this.movementCost
     let competitionRisk = this.plantHasCompetition(plant) ? 1 : 0
     let cost = eatCost + movementCost + competitionRisk
