@@ -26,8 +26,15 @@
   </body>
 
   <script>
-    const worldWidthInHexes = 50
-    const worldHeightInHexes = 25
+    // Function to get URL parameters
+  function getUrlParameter(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+  }
+
+// Get width and height from URL parameters or use defaults
+    const worldWidthInHexes = parseInt(getUrlParameter('width')) || 50;
+    const worldHeightInHexes = parseInt(getUrlParameter('height')) || 25;
     const hexSize = 15
 
     // milliseconds between every step when running automatically
